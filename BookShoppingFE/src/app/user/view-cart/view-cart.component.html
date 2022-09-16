@@ -1,0 +1,184 @@
+<div class="body">
+  <div class="container content-body">
+    <div class="cart-detail-wrapper">
+      <h3>Giỏ hàng {{cartItems?.length}} sản phẩm</h3>
+      <div class="row" *ngIf="cartItems.length > 0">
+        <div class="col-8">
+          <div class="row cart-detail-wrapper__header">
+            <div class="check-all-items">
+              <input type="checkbox" class="check-add-all-products" (change)="checkAllProducts($event)">
+            </div>
+            <div class="cart-header__text-check-all-items">
+              Chọn tất cả <span>({{quantityCheck}} sản phẩm)</span>
+            </div>
+            <div class="cart-header__quantity">
+              Số lượng
+            </div>
+            <div class="cart-header__price">
+              Thành tiền
+            </div>
+            <div class="cart-header__remove">
+
+            </div>
+          </div>
+
+          <div class="cart-detail-wrapper__body">
+            <div class="item-product-cart d-flex-align-center" *ngFor="let cartItem of cartItems">
+              <div class="checked-item-wrapper">
+                <input type="checkbox" class="checked-item" (change)="checkedItem(cartItem, $event.target)" #inputQ>
+              </div>
+
+              <div class="item-product-content-wrapper d-flex">
+                <img src="{{cartItem?.book.avatar}}" alt="" class="item-product-image">
+                <div class="d-flex-justify-sp-between d-flex-direction-column">
+                  <div class="item-product-name">
+                    {{cartItem?.book.name}}
+                  </div>
+                  <div class="item-product-auth">
+                    Tác giả: {{cartItem?.book.author}}
+                  </div>
+                  <div class="item-product-year-publish">
+                    Năm xuất bản: {{cartItem?.book.yearPublisher}}
+                  </div>
+                  <div>
+                    Giá tiền: <span class="fw-bold">{{cartItem?.book.price | currency: 'VND'}}</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="item-product-quantity d-flex-center-all">
+                <a class="btn-change-quantity" (click)="subQuantity(cartItem?.id, cartItem?.book.id)">
+                  <img src="/assets/image/image-sub.png" alt="" class="image-change-quantity">
+                </a>
+                <input type="text" class="input-change-quantity fs-14" [value]="cartItem.amount" [id]="'cartItem' + cartItem.id">
+                <a class="btn-change-quantity" (click)="addQuantity(cartItem?.id, cartItem?.book.id)">
+                  <img src="/assets/image/image-add.png" alt="" class="image-change-quantity">
+                </a>
+              </div>
+
+              <div class="item-product-total-price">
+                {{cartItem.amount * cartItem?.book.price | currency: 'VND'}}
+              </div>
+
+              <div class="remover-item" (click)="openModal(cartItem.id)">
+                <i class="bi bi-trash icon-remove-item"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-4">
+          <div class="row promotion-wrapper ml-16">
+            <div class="promotion-header d-flex-justify-sp-between">
+              <div class="d-flex-align-center">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+                     class="bi bi-ticket-perforated" viewBox="0 0 16 16">
+                  <path
+                    d="M4 4.85v.9h1v-.9H4Zm7 0v.9h1v-.9h-1Zm-7 1.8v.9h1v-.9H4Zm7 0v.9h1v-.9h-1Zm-7 1.8v.9h1v-.9H4Zm7 0v.9h1v-.9h-1Zm-7 1.8v.9h1v-.9H4Zm7 0v.9h1v-.9h-1Z"/>
+                  <path
+                    d="M1.5 3A1.5 1.5 0 0 0 0 4.5V6a.5.5 0 0 0 .5.5 1.5 1.5 0 1 1 0 3 .5.5 0 0 0-.5.5v1.5A1.5 1.5 0 0 0 1.5 13h13a1.5 1.5 0 0 0 1.5-1.5V10a.5.5 0 0 0-.5-.5 1.5 1.5 0 0 1 0-3A.5.5 0 0 0 16 6V4.5A1.5 1.5 0 0 0 14.5 3h-13ZM1 4.5a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 .5.5v1.05a2.5 2.5 0 0 0 0 4.9v1.05a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5v-1.05a2.5 2.5 0 0 0 0-4.9V4.5Z"/>
+                </svg>
+                <span class="ml-8">KHUYẾN MÃI</span>
+              </div>
+              <a href="" class="link-view-promotion-more">
+                Xem thêm
+                <i class="bi bi-chevron-right"></i>
+              </a>
+            </div>
+            <div class="promotion-body">
+              <div class="promotion-item">
+                <div class="promotion-item-header">MÃ GIẢM 40K</div>
+                <div class="promotion-item-desc">Cho đơn hàng từ 300k - Toàn Sàn - Không áp dụng cho
+                  Phiếu Quà Tặng
+                </div>
+                <div class="d-flex-justify-sp-between fs-12">
+                  <div class="d-flex-direction-column color-333">
+                    <div class="promotion-item-processing-bar"></div>
+                    <div class="promotion-item-processing-desc">Mua thêm 300.000đ để nhận mã ...
+                    </div>
+                  </div>
+                  <div>
+                    <button class="btn btn-buy-more">Mua thêm</button>
+                  </div>
+                </div>
+              </div>
+              <div class="promotion-item">
+                <div class="promotion-item-header">MÃ GIẢM 20K</div>
+                <div class="promotion-item-desc">Cho đơn hàng từ 200k - Toàn Sàn - Không áp dụng cho
+                  Phiếu Quà Tặng
+                </div>
+                <div class="d-flex-justify-sp-between fs-12">
+                  <div class="d-flex-direction-column color-333">
+                    <div class="promotion-item-processing-bar"></div>
+                    <div class="promotion-item-processing-desc">Mua thêm 200.000đ để nhận mã ...
+                    </div>
+                  </div>
+                  <div>
+                    <button class="btn btn-buy-more">Mua thêm</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="promotion-footer">
+              Có thể áp dụng đồng thời nhiều mã
+              <i class="bi bi-exclamation-circle"></i>
+            </div>
+          </div>
+          <div class="row">
+            <div class="total-price-wrapper">
+              <div class="total-price-no-vat">
+                <span class="total-price-no-vat-text">Thành tiền</span>
+                <span class="total-price-no-vat-value">{{totalPrice | currency: 'VND'}}</span>
+              </div>
+              <div class="total-price-vat fw-bold">
+                <span class="total-price-vat-text">Tổng Số Tiền (gồm VAT)</span>
+                <span class="total-price-vat-value">{{totalPrice | currency: 'VND'}}</span>
+              </div>
+              <button class="btn btn-outline btn-payment">Thanh toán</button>
+              <span class="color-red fz-14">Giảm giá trên web chỉ áp dụng cho bán lẻ</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="component cart-no-product-wrapper" *ngIf="cartItems.length === 0">
+      <div class="cart-no-product d-flex-align-center d-flex-direction-column">
+        <img src="https://cdn0.fahasa.com/skin//frontend/ma_vanese/fahasa/images/checkout_cart/ico_emptycart.svg"
+             alt="" class="image-cart-no-product">
+        <p>Chưa có sản phẩm trong giỏ hàng của bạn.</p>
+        <button class="btn btn-fill" routerLink="/">Mua sắm ngay</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal">
+  <div class="modal-overlay"></div>
+  <div class="modal-container">
+    <div class="modal-header">
+      <svg width="24" height="24" class="dialog-content__icon" viewBox="0 0 24 24" fill="none"
+           xmlns="http://www.w3.org/2000/svg">
+        <path fill-rule="evenodd" clip-rule="evenodd"
+              d="M12 8.25C12.4142 8.25 12.75 8.58579 12.75 9V13.5C12.75 13.9142 12.4142 14.25 12 14.25C11.5858 14.25 11.25 13.9142 11.25 13.5V9C11.25 8.58579 11.5858 8.25 12 8.25Z"
+              fill="#FC820A"></path>
+        <path fill-rule="evenodd" clip-rule="evenodd"
+              d="M10.0052 4.45201C10.8464 2.83971 13.1536 2.83971 13.9948 4.45201L20.5203 16.9592C21.3019 18.4572 20.2151 20.25 18.5255 20.25H5.47447C3.78487 20.25 2.69811 18.4572 3.47966 16.9592L10.0052 4.45201ZM12.6649 5.14586C12.3845 4.60842 11.6154 4.60842 11.335 5.14586L4.80953 17.6531C4.54902 18.1524 4.91127 18.75 5.47447 18.75H18.5255C19.0887 18.75 19.4509 18.1524 19.1904 17.6531L12.6649 5.14586Z"
+              fill="#FC820A"></path>
+        <path
+          d="M12 17.25C12.6213 17.25 13.125 16.7463 13.125 16.125C13.125 15.5037 12.6213 15 12 15C11.3787 15 10.875 15.5037 10.875 16.125C10.875 16.7463 11.3787 17.25 12 17.25Z"
+          fill="#FC820A"></path>
+      </svg>
+      Bạn có muốn xoá sản phẩm?
+    </div>
+    <div class="modal-body">
+      <div>Tên sách: {{book?.name}}</div>
+      <div>Tác giả: {{book?.author}}</div>
+      <div>Giá tiền: <span class="color-red">{{book?.price | currency: 'VND'}}</span></div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn btn-outline" (click)="removeItem()">Xác nhận</button>
+      <button class="btn btn-fill btn-cancel" (click)="hiddenModal()">Huỷ</button>
+    </div>
+  </div>
+</div>
+

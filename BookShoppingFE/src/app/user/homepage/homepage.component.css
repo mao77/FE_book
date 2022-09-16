@@ -1,0 +1,122 @@
+.category-title,
+.best-sale-title {
+  font-size: 20px;
+  padding-bottom: 10px;
+  /* border-bottom: 1px solid #ccc; */
+  display: flex;
+  align-items: center;
+  color: rgb(8, 79, 154);
+  font-weight: 600;
+}
+
+.category-icon,
+.best-sale-icon {
+  font-size: 25px;
+  margin-right: 15px;
+}
+
+.category-item {
+  text-align: center;
+  padding: 8px;
+  border: 1px solid rgba(0,0,0,.05);
+  cursor: pointer;
+  min-height: 142px;
+  margin: 5px;
+}
+.category-item:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 1px 20px rgba(0, 0, 0, 0.06);
+}
+
+.category-item-image {
+  width: 80px;
+  height: 80px;
+  object-fit: contain;
+}
+
+.category-item-name {
+  font-size: 13px;
+  line-height: 20px;
+  color: #242424;
+  margin: 0;
+  word-break: break-word;
+  display: -webkit-box;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.product-item-wrapper {
+  padding: 8px 12px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  margin: 8px;
+}
+.product-item-wrapper:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.2);
+}
+
+
+.product-image {
+  display: block;
+  margin: 0 auto;
+  width: 100%;
+  height: 150px;
+  object-fit: contain;
+}
+.product-name {
+  color: rgb(56, 56, 61);
+  margin-top: 8px;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+.product-price {
+  color: rgb(255, 66, 78);
+  font-weight: 600;
+  margin-top: 8px;
+}
+
+
+
+.btn-view-more-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.btn-view-more {
+  padding: 8px 50px;
+  margin-top: 20px;
+  border-radius: 4px;
+  font-size: 15px;
+  background-color: #fff;
+  color: rgb(8, 79, 154);
+  outline: 2px solid rgb(8, 79, 154);
+}
+
+.btn-view-more:hover {
+  background-color: rgb(8, 79, 154);
+  color: #fff;
+}
+
+.slide-advertisement {
+  border-radius: 10px;
+  margin-bottom: 32px;
+  /*display: none;*/
+  /*transition: opacity 1s ease-out;*/
+  /*animation: fadeIn linear 3s;*/
+
+
+  /*animation-timing-function: linear;*/
+}
+
+.slide-advertisement > img {
+  border-radius: 10px;
+  height: 440px;
+  object-fit: cover;
+  width: 100%;
+}

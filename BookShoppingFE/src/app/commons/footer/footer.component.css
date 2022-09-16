@@ -1,0 +1,37 @@
+/* footer */
+footer {
+  background-color: #fff;
+  font-size: 13px;
+  padding-bottom: 10px;
+}
+
+footer h4 {
+  font-size: 15px;
+}
+footer li {
+  color: rgb(128, 128, 137);
+  margin: 8px 0;
+
+}
+footer li a {
+  color: rgb(128, 128, 137);
+
+}
+footer li a:hover {
+  text-decoration: underline;
+}
+
+.contact-wrapper a {
+  margin-right: 12px;
+}
+
+.download-wrapper {
+  display: flex;
+}
+
+.download-mobile {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding-left: 8px;
+}

@@ -1,0 +1,77 @@
+<div class="body">
+  <div class="container content-body">
+
+    <div class="component border-radius-none">
+      <h1 class="search-title">
+        Kết quả tìm kiếm cho '{{searchValue}}'
+      </h1>
+
+      <div class="navigate-sort d-flex">
+        <div class="active">Phổ biến</div>
+        <div>Bán chạy</div>
+        <div>Hàng mới</div>
+        <div>Giá thấp</div>
+        <div>Giá cao</div>
+      </div>
+
+      <div class="row product_list_container">
+        <div class="col-2" *ngFor="let book of page?.content">
+          <div class="product-item-wrapper" [routerLink]="['/detail', book.id]">
+            <img [src]="book.avatar" alt="" class="product-image">
+            <div class="product-name">
+              {{book.name}}
+            </div>
+            <div class="product-rate">
+              <span *ngFor="let i of numberRatings">
+                <i class="bi bi-star-fill icon-star-fill" *ngIf="i <= book.numberRating"></i>
+                <i class="bi bi-star-fill icon-star-no-fill" *ngIf="i > book.numberRating"></i>
+              </span>
+            </div>
+            <div class="product-price">
+              {{book.price | currency: 'VND'}}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="pagination">
+        <div class="pagination-item" *ngIf="indexPage > 1" (click)="previousPage()">
+          <div class="pagination-left"></div>
+        </div>
+        <div *ngIf="this.page?.totalPages <= 5" class="row">
+          <div class="pagination-item" [class.active]="indexPage - 1 == i"
+               *ngFor="let p of this.arrayNumberPage; let i = index" (click)="setIndexPage(p)">
+            {{p}}
+          </div>
+        </div>
+
+        <div *ngIf="this.page?.totalPages > 5 && this.indexPage + 2 <= this.page?.totalPages" class="row">
+          <div class="row" *ngIf="this.indexPage <= 3">
+            <div class="pagination-item" [class.active]="indexPage - 1 == i"
+                 *ngFor="let p of this.arrayNumberPage; let i = index" (click)="setIndexPage(p)">
+              {{p}}
+            </div>
+          </div>
+
+          <div class="row" *ngIf="this.indexPage > 3">
+            <div class="pagination-item" [class.active]="i == 2"
+                 *ngFor="let p of this.arrayNumberPage; let i = index" (click)="setIndexPage(p)">
+              {{p}}
+            </div>
+          </div>
+        </div>
+
+        <div *ngIf="this.page?.totalPages > 5 && this.indexPage + 2 > this.page?.totalPages" class="row">
+          <div class="pagination-item" [class.active]="i == indexPage - this.page?.totalPages + 4"
+               *ngFor="let p of this.arrayNumberPage; let i = index" (click)="setIndexPage(p)">
+            {{p}}
+          </div>
+        </div>
+
+        <div class="pagination-item" *ngIf="indexPage < page?.totalPages" (click)="nextPage()">
+          <div class="pagination-right"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

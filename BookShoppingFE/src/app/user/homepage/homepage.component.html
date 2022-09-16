@@ -1,0 +1,72 @@
+<div class="body">
+  <div class="container pt-16">
+    <marquee behavior="" direction="">
+      Chào mừng quý khách <span class="color-blue fw-bold">{{user?.name.toUpperCase()}}</span> đến xem sản phẩm của chúng tôi.
+      Hy vọng quý khách có một trải nghiệm tốt.
+      Nếu gặp phải trải nghiệm không tốt, vui lòng liên hệ <span class="color-red ">1900.9999</span> để được hỗ trợ tốt nhất.
+    </marquee>
+  </div>
+
+  <div class="container content-body">
+    <div>
+      <div #slides *ngFor="let image of images" class="slide-advertisement">
+        <img src="{{image.path}}" alt="">
+      </div>
+    </div>
+
+    <div class="component">
+      <div class="row category-title">
+        <i class="bi bi-grid-3x3-gap category-icon"></i>
+        Danh mục sản phẩm
+      </div>
+      <div class="row">
+        {{imageUrl}}
+      </div>
+      <div class="row">
+        <div class="col-1-2 m-3" *ngFor="let category of categories">
+          <div class="category-item" (click)="search(category.name)">
+            <img [src]="category?.imageUrl" alt="Image error" class="category-item-image">
+            <p class="category-item-name">{{category.name}}</p>
+          </div>
+        </div>
+      </div>
+<!--      <div class="row">-->
+<!--        <div class="col-1-2 m-3" *ngFor="let category of categories">-->
+<!--          <div class="category-item" (click)="search(category.name)">-->
+<!--            <img [src]="category?.imageUrl" alt="Image error" class="category-item-image">-->
+<!--            <p class="category-item-name">{{category.name}}</p>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+    </div>
+
+    <div class="component">
+      <div class="row best-sale-title">
+        <i class="bi bi-lightning best-sale-icon"></i>
+        Sách bán chạy
+      </div>
+      <div class="row">
+        <div class="col-2" *ngFor="let book of books">
+          <div class="product-item-wrapper" [routerLink]="['/detail', book.id]">
+            <img [src]="book.avatar" alt="" class="product-image">
+            <div class="product-name">
+              {{book.name}}
+            </div>
+            <div class="product-rate">
+              <span *ngFor="let i of numberRatings">
+                <i class="bi bi-star-fill icon-star-fill" *ngIf="i <= book.numberRating"></i>
+                <i class="bi bi-star-fill icon-star-no-fill" *ngIf="i > book.numberRating"></i>
+              </span>
+            </div>
+            <div class="product-price">
+              {{book.price | currency: 'VND'}}
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row btn-view-more-wrapper">
+        <button class="btn btn-view-more" (click)="viewMore()">Xem thêm</button>
+      </div>
+    </div>
+  </div>
+</div>

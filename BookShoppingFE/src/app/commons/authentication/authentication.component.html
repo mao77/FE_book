@@ -1,0 +1,127 @@
+<!-- Modal login/register -->
+<div class="modal">
+  <div class="modal-overlay" (click)="hiddenFormAuthen()">
+
+  </div>
+  <!-- Login -->
+  <div class="modal-container">
+    <ul class="modal-header">
+      <!-- <li class="modal-header-first-select">Đăng nhập</li> -->
+      <li (click)="openFormLogin()">Đăng nhập</li>
+      <li (click)="openFormRegister()">Đăng ký</li>
+    </ul>
+    <div class="modal-body">
+      <!-- Form login -->
+      <form action="" class="form-login" appFocusInvalidInput #focusInput="focusInvalidInput"
+            [formGroup]="formLogin" #flg="ngForm" (ngSubmit)="login()">
+        <div class="login-oauth2-wrapper d-flex-align-center d-flex-direction-column">
+          <a class="btn btn-login" (click)="loginOAuth2Google()">
+            Đăng nhập bằng Google
+          </a>
+          <p>OR</p>
+          <a class="btn btn-login" (click)="loginOAuth2Facebook()">
+            Đăng nhập bằng Facebook
+          </a>
+        </div>
+        <div class="input-wrapper">
+          <label for="email" class="input-label">Email</label>
+          <input type="text" placeholder="Nhập email của bạn"
+                 id="email" class="input-control" formControlName="email">
+          <div *ngFor="let validation of validationMessages.email">
+            <div *ngIf="emailLogin.hasError(validation.type) && (emailLogin.touched || flg.submitted)"
+                 class="error mt-8">{{validation.message}}</div>
+          </div>
+        </div>
+        <div class="input-wrapper position-relative">
+          <label for="password" class="input-label">Mật khẩu</label>
+          <input type="password" placeholder="Nhập mật khẩu của bạn"
+                 id="password" class="input-control" formControlName="password">
+          <i class="bi bi-eye-slash icon-eye icon-view-password"
+             id="togglePassword" (click)="togglePassword('#password', '#togglePassword')"></i>
+          <div *ngFor="let validation of validationMessages.password">
+            <div *ngIf="password.hasError(validation.type) && (password.touched || flg.submitted)"
+                 class="error mt-8">{{validation.message}}</div>
+          </div>
+        </div>
+        <a href="" class="forgot-password-link">Quên mật khẩu?</a>
+        <div>
+          <button class="btn btn-login" type="submit" (click)="focusInput.focus()">Đăng nhập</button>
+          <a class="btn btn-close-form" (click)="hiddenFormAuthen()">Bỏ qua</a>
+        </div>
+      </form>
+
+      <!-- Form register -->
+      <form class="form-register" [formGroup]="formRegister" #fr="ngForm"
+            appFocusInvalidInput #focusInputRegister="focusInvalidInput" (ngSubmit)="register()">
+        <div class="input-wrapper">
+          <label for="name" class="input-label">Họ và tên</label>
+          <input type="text" placeholder="Nhập họ và tên"
+                 id="name" class="input-control" formControlName="name">
+          <div *ngFor="let validation of validationMessages.name">
+            <div *ngIf="name.hasError(validation.type) && (name.touched || fr.submitted)"
+                 class="error mt-8">{{validation.message}}</div>
+          </div>
+        </div>
+        <div class="input-wrapper position-relative">
+          <label for="email-register" class="input-label">Email</label>
+          <input type="text" placeholder="Nhập email đăng ký"
+                 id="email-register" class="input-control" formControlName="email">
+          <a class="register-link-otp"(click)="getOTP()">Gửi mã OTP</a>
+          <div *ngFor="let validation of validationMessages.email">
+            <div *ngIf="emailRegister.hasError(validation.type) && (emailRegister.touched || fr.submitted)"
+                 class="error mt-8">{{validation.message}}</div>
+          </div>
+        </div>
+        <div class="input-wrapper">
+          <label for="OTP-register" class="input-label">Mã xác nhận OTP</label>
+          <input type="text" placeholder="Nhập mã OTP"
+                 id="OTP-register" class="input-control" formControlName="OTP">
+
+          <div *ngFor="let validation of validationMessages.OTP">
+            <div *ngIf="OTP.hasError(validation.type) && (OTP.touched || fr.submitted)"
+                 class="error mt-8">{{validation.message}}</div>
+          </div>
+        </div>
+        <div formGroupName="pwGroup">
+          <div class="input-wrapper position-relative">
+            <label for="newPass" class="input-label">Mật khẩu</label>
+            <input type="password" placeholder="Nhập mật khẩu mới"
+                   id="newPass" class="input-control" formControlName="newPass">
+            <i class="bi bi-eye-slash icon-eye icon-view-password"
+               id="toggleNewPass" (click)="togglePassword('#newPass', '#toggleNewPass')"></i>
+
+            <div *ngFor="let validation of validationMessages.newPass">
+              <div *ngIf="newPass.hasError(validation.type) && (newPass.touched || fr.submitted)"
+                   class="error mt-8">{{validation.message}}</div>
+            </div>
+          </div>
+          <div class="input-wrapper position-relative">
+            <label for="confirmPass" class="input-label">Xác nhận mật khẩu</label>
+            <input type="password" placeholder="Xác nhận mật khẩu"
+                   id="confirmPass" class="input-control" formControlName="confirmPass">
+            <i class="bi bi-eye-slash icon-eye icon-view-password"
+               id="toggleConfirmPass" (click)="togglePassword('#confirmPass', '#toggleConfirmPass')"></i>
+
+            <div *ngFor="let validation of validationMessages.confirmPass">
+              <div *ngIf="confirmPass.hasError(validation.type) && (confirmPass.touched || fr.submitted)"
+                   class="error mt-8">{{validation.message}}</div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <button class="btn btn-register" type="submit" (click)="focusInputRegister.focus()">Đăng ký</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+<div class="loading-container">
+  <div class="overlay"></div>
+  <div class="balls">
+    <div></div>
+    <div></div>
+    <div></div>
+  </div>
+</div>

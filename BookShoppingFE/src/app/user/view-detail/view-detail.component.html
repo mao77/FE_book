@@ -1,0 +1,277 @@
+<div class="body">
+  <div class="container content-body">
+    <div class="component">
+      <div class="row product-wrapper">
+        <div class="product-wrapper-col-left">
+          <div class="ml-8">
+            <div class="product-image-thumbnail">
+              <div class="gallery d-flex-direction-column">
+                <div class="gallery-item">
+                  <img src="/assets/image/img-demo-gallery.jpg" alt="">
+                </div>
+                <div class="gallery-item">
+                  <img src="/assets/image/img-demo-gallery.jpg" alt="">
+                </div>
+                <div class="gallery-item">
+                  <img src="/assets/image/img-demo-gallery.jpg" alt="">
+                </div>
+                <div class="gallery-item">
+                  <img src="/assets/image/img-demo-gallery.jpg" alt="">
+                </div>
+              </div>
+              <div class="mg-auto">
+                <img src="{{book?.avatar}}" alt="" class="product-avatar-image">
+              </div>
+            </div>
+          </div>
+          <div class="product-add-btn-wrapper d-flex-justify-center">
+            <button class="btn btn-outline btn-add-to-cart" (click)="addToCart()">
+              <i class="bi bi-cart-plus cart-icon"></i>
+              Thêm vào giỏ hàng
+            </button>
+            <button class="btn btn-buy-product">Mua ngay</button>
+          </div>
+        </div>
+        <div class="product-wrapper-col-right">
+          <div class="product-detail">
+            <div class="product-detail-name">
+              {{book?.name}}
+            </div>
+            <div class="row product-info-wrapper">
+              <div class="product-info-col-left">
+                Nhà cung cấp:
+                <span class="color-blue">{{book?.supplier}}</span>
+              </div>
+              <div class="product-info-col-right">
+                Tác giả:
+                <span>{{book?.author}}</span>
+              </div>
+            </div>
+            <div class="row product-info-wrapper">
+              <div class="product-info-col-left">
+                Nhà xuất bản:
+                <span>{{book?.publisher}}</span>
+              </div>
+              <div class="product-info-col-right">
+                Hình thức bìa:
+                <span>{{book?.coverForm}}</span>
+              </div>
+            </div>
+            <div class="row product-detail-rate">
+              <i class="bi bi-star-fill icon-star-fill"></i>
+              <i class="bi bi-star-fill icon-star-fill"></i>
+              <i class="bi bi-star-fill icon-star-fill"></i>
+              <i class="bi bi-star-fill icon-star-fill"></i>
+              <i class="bi bi-star-fill icon-star-no-fill"></i>
+              <span>(32 đánh giá)</span>
+            </div>
+            <div class="row product-price-wrapper">
+              <div class="product-new-price">
+                {{book?.price | currency: 'VND'}}
+              </div>
+              <div class="product-old-price">
+                {{book?.price * 1.32 | currency: 'VND'}}
+              </div>
+              <div class="discount-percent-product">
+                -32%
+              </div>
+            </div>
+            <div class="row return-product-policy">
+              <span>Chính sách đổi trả</span>
+              <span>Đổi trả sản phẩm trong 30 ngày</span>
+              <a href="">Xem thêm</a>
+            </div>
+            <div class="product-quantity-wrapper">
+              <span>Số lượng:</span>
+              <div class="change-quantity-product">
+                <a class="btn-change-quantity" (click)="subQuantity()">
+                  <img src="/assets/image/image-sub.png" alt="" class="image-change-quantity">
+                </a>
+                <input type="text" value="1" class="input-change-quantity fs-14">
+                <a class="btn-change-quantity" (click)="addQuantity()">
+                  <img src="/assets/image/image-add.png" alt="" class="image-change-quantity">
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="component">
+      <div class="component-header">
+        SẢN PHẨM CÙNG TÁC GIẢ
+      </div>
+
+      <div class="component-body position-relative">
+        <div class="row position-relative row-same-author">
+          <div class="col-2" *ngFor="let book of sliderBooksAuthor">
+            <div class="product-item-wrapper pf-8" (click)="viewAnotherBook(book.id)">
+              <div class="text-align-center">
+                <img src="{{book?.avatar}}" alt="" class="product-image">
+              </div>
+              <div class="product-name">
+                {{book?.name}}
+              </div>
+              <div class="product-rate">
+                <span *ngFor="let i of numberRatings">
+                <i class="bi bi-star-fill icon-star-fill" *ngIf="i <= book?.numberRating"></i>
+                <i class="bi bi-star-fill icon-star-no-fill" *ngIf="i > book?.numberRating"></i>
+              </span>
+              </div>
+              <div class="product-price">
+                Giá: <span>{{book?.price | currency: 'VND'}}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="component">
+      <div class="component-header">
+        SẢN PHẨM CÙNG THỂ LOẠI (20 sản phẩm)
+      </div>
+      <div class="component-body position-relative">
+        <div class="btn-previous-wrapper" (click)="previousBooksCategory()">
+          <div class="btn-previous"></div>
+        </div>
+
+        <div class="row row-same-category">
+          <div class="col-2" *ngFor="let book of sliderBooksCategory">
+            <div class="product-item-wrapper pf-8" (click)="viewAnotherBook(book.id)">
+              <div class="text-align-center">
+                <img src="{{book?.avatar}}" alt="" class="product-image">
+              </div>
+              <div class="product-name">
+                {{book?.name}}
+              </div>
+              <div class="product-rate">
+                <span *ngFor="let i of numberRatings">
+                <i class="bi bi-star-fill icon-star-fill" *ngIf="i <= book?.numberRating"></i>
+                <i class="bi bi-star-fill icon-star-no-fill" *ngIf="i > book?.numberRating"></i>
+              </span>
+              </div>
+              <div class="product-price">
+                Giá: <span>{{book?.price | currency: 'VND'}}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="btn-next-wrapper" (click)="nextBooksCategory()">
+          <div class="btn-next"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="component">
+      <div class="component-header">
+        Thông tin sản phẩm
+      </div>
+      <div class="component-body">
+        <div class="row">
+          <div class="col-3 product-info-title">
+            <span>Mã hàng</span>
+            <span>Tên nhà cung cấp</span>
+            <span>Tác giả</span>
+            <span>Nhà xuất bản</span>
+            <span>Năm xuất bản</span>
+            <span>Ngôn ngữ</span>
+            <span>Trọng lượng (gr)</span>
+            <span>Kích thước bao bì</span>
+            <span>Số trang</span>
+            <span>Hình thức</span>
+            <span>Sản phẩm bán chạy trong</span>
+          </div>
+          <div class="col-9 product-info-content">
+            <span>{{book?.id}}</span>
+            <span class="color-blue">{{book?.supplier}}</span>
+            <span>{{book?.author}}</span>
+            <span>{{book?.publisher}}</span>
+            <span>{{book?.yearPublisher}}</span>
+            <span>{{book?.language}}</span>
+            <span>{{book?.weight}}</span>
+            <span>{{book?.packagingSize}}</span>
+            <span>{{book?.page}}</span>
+            <span>{{book?.coverForm}}</span>
+            <span class="color-blue">Top 100 sản phẩm Kỹ năng sống bán chạy của tháng</span>
+          </div>
+        </div>
+        <div class="color-333 fs-14 pb-8 mt-4">
+          Giá sản phẩm trên Fahasa.com đã bao gồm thuế theo luật hiện hành.
+          Bên cạnh đó, tuỳ vào loại sản phẩm, hình thức và địa chỉ giao hàng mà có thể phát sinh
+          thêm chi phí khác như Phụ phí đóng gói, phí vận chuyển, phụ phí hàng cồng kềnh,...
+        </div>
+        <div class="product-description fs-14">
+          <div class="product-description-name">
+            {{book?.name}}
+          </div>
+          <div class="product-description-content" *ngIf="isViewDesc">
+            <p *ngFor="let desc of descriptions">{{desc}}</p>
+          </div>
+          <div class="product-description-content" *ngIf="!isViewDesc">
+            <p>Xem thêm ...</p>
+          </div>
+          <div class="d-flex-justify-center">
+            <button class="btn btn-view-desc" (click)="changeView()" *ngIf="!isViewDesc">Xem thêm</button>
+            <button class="btn btn-view-desc" (click)="changeView()" *ngIf="isViewDesc">Rút gọn</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="component">
+      <div class="component-header">
+        Đánh giá sản phẩm
+      </div>
+      <div class="component-body">
+        <div class="row">
+          <div class="col-5 product-content-rating-chart">
+            <div class="d-flex-direction-column d-flex-align-center">
+              <div>4<span>/5</span></div>
+              <div>
+                <i class="bi bi-star-fill icon-star-fill"></i>
+                <i class="bi bi-star-fill icon-star-fill"></i>
+                <i class="bi bi-star-fill icon-star-fill"></i>
+                <i class="bi bi-star-fill icon-star-fill"></i>
+                <i class="bi bi-star-fill icon-star-no-fill"></i>
+              </div>
+              <div>(0 đánh giá)</div>
+            </div>
+            <div>
+              <div class="d-flex-center-all">
+                <span>5 sao</span>
+                <div class="product-content-rating-bar"></div>
+                <span>0 %</span>
+              </div>
+              <div class="d-flex-center-all">
+                <span>4 sao</span>
+                <div class="product-content-rating-bar"></div>
+                <span>0 %</span>
+              </div>
+              <div class="d-flex-center-all">
+                <span>3 sao</span>
+                <div class="product-content-rating-bar"></div>
+                <span>0 %</span>
+              </div>
+              <div class="d-flex-center-all">
+                <span>2 sao</span>
+                <div class="product-content-rating-bar"></div>
+                <span>0 %</span>
+              </div>
+              <div class="d-flex-center-all">
+                <span>1 sao</span>
+                <div class="product-content-rating-bar"></div>
+                <span>0 %</span>
+              </div>
+            </div>
+          </div>
+          <div class="col-7 d-flex-center-all">
+            <button class="btn btn-outline btn-write-rating">Viết đánh giá</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

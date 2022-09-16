@@ -1,0 +1,192 @@
+<div class="body">
+  <div class="container content-body">
+    <div class="row">
+      <div class="col-3">
+        <app-sidebar></app-sidebar>
+      </div>
+      <div class="col-9">
+        <div class="component">
+          <div class="component-header">Thông tin tài khoản</div>
+          <div class="component-body">
+            <form [formGroup]="form" #f="ngForm" appFocusInvalidInput #focusInput="focusInvalidInput" (ngSubmit)="updateInfo()">
+              <div class="row d-flex-align-center mb-20">
+                <div class="col-3">
+                  <label class="form-label" for="name">
+                    Họ và tên
+                    <span>(*)</span>
+                  </label>
+                </div>
+                <div class="col-9">
+                  <input type="text" class="form-control" id="name" formControlName="name" placeholder="Nhập họ và tên">
+                </div>
+                <div class="col-3"></div>
+                <div class="col-9">
+                  <div *ngFor="let validation of validationMessages.name">
+                    <div *ngIf="name.hasError(validation.type) && (name.touched || f.submitted)" class="color-red ml-8 mt-8">
+                      {{validation.message}}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row d-flex-align-center mb-20">
+                <div class="col-3">
+                  <span class="form-label">Giới tính</span>
+                </div>
+                <div class="col-9 gender-wrapper">
+                  <input type="radio" name="gender" value="male" id="male" formControlName="gender">
+                  <label for="male">Nam</label>
+
+                  <input type="radio" name="gender" value="female" id="female" formControlName="gender">
+                  <label for="female">Nữ</label>
+
+                  <input type="radio" name="gender" value="other" id="other" formControlName="gender">
+                  <label for="other">Khác</label>
+                </div>
+              </div>
+
+              <div class="row d-flex-align-center mb-20">
+                <div class="col-3">
+                  <label class="form-label" for="birthday">
+                    Ngày sinh
+                  </label>
+                </div>
+                <div class="col-9">
+                  <input type="date" class="form-control" id="birthday" formControlName="birthday">
+                </div>
+                <div class="col-3"></div>
+                <div class="col-9">
+                  <div *ngFor="let validation of validationMessages.birthday">
+                    <div *ngIf="birthday.hasError(validation.type) && (birthday.touched || f.submitted)" class="color-red ml-8 mt-8">
+                      {{validation.message}}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row d-flex-align-center mb-20">
+                <div class="col-3">
+                  <label class="form-label" for="email">
+                    Email
+                    <span>(*)</span>
+                  </label>
+                </div>
+                <div class="col-9 position-relative">
+                  <input type="text" class="form-control" id="email" formControlName="email" placeholder="Nhập email" readonly disabled>
+                  <span class="color-blue text-change-email" (click)="openModalChangeEmail()"
+                        *ngIf="user?.provider == 'local'">Thay đổi</span>
+                </div>
+                <div class="col-3"></div>
+                <div class="col-9">
+                  <div *ngFor="let validation of validationMessages.email">
+                    <div *ngIf="email.hasError(validation.type) && (email.touched || f.submitted)" class="color-red ml-8 mt-8">
+                      {{validation.message}}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+
+              <div class="row d-flex-align-center mb-20">
+                <div class="col-3">
+                  <label class="form-label" for="phone">
+                    Số điện thoại
+                  </label>
+                </div>
+                <div class="col-9">
+                  <input type="text" class="form-control" id="phone" formControlName="phone" placeholder="Nhập số điện thoại">
+                </div>
+
+                <div class="col-3"></div>
+                <div class="col-9">
+                  <div *ngFor="let validation of validationMessages.phone">
+                    <div *ngIf="phone.hasError(validation.type) && (phone.touched || f.submitted)" class="color-red ml-8 mt-8">
+                      {{validation.message}}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row d-flex-align-center mb-20">
+                <div class="col-3">
+                  <label class="form-label" for="address">
+                    Địa chỉ
+                  </label>
+                </div>
+                <div class="col-9">
+                  <input type="text" class="form-control" id="address" formControlName="address" placeholder="Nhập địa chỉ">
+                </div>
+                <div class="col-3"></div>
+                <div class="col-9">
+                  <div *ngFor="let validation of validationMessages.address">
+                    <div *ngIf="address.hasError(validation.type) && (address.touched || f.submitted)" class="color-red ml-8 mt-8">
+                      {{validation.message}}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row d-flex-justify-center">
+                <button class="btn btn-fill btn-save" type="submit" (click)="focusInput.focus()">Lưu thay đổi</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="modal">
+  <div class="modal-overlay" (click)="hiddenModal()">
+
+  </div>
+  <div class="modal-container">
+    <h3 class="modal-header m-0">
+      Thay đổi email người dùng
+    </h3>
+    <div class="modal-body">
+      <form class="form-login" appFocusInvalidInput #focusInput="focusInvalidInput"
+            [formGroup]="formChangeEmail" #f="ngForm" (ngSubmit)="updateEmail()">
+        <div class="input-wrapper position-relative">
+          <label for="newEmail" class="input-label">Email</label>
+          <input type="text" placeholder="Nhập email mới của bạn"
+                 id="newEmail" class="input-control" formControlName="newEmail">
+          <a class="get-otp color-blue"(click)="getOTP()">Gửi mã OTP</a>
+          <div *ngFor="let validation of validationMessages.email">
+            <div *ngIf="newEmail.hasError(validation.type) && (newEmail.touched || f.submitted)" class="color-red mt-8">
+              {{validation.message}}
+            </div>
+          </div>
+        </div>
+
+        <div class="input-wrapper">
+          <label for="otp" class="input-label">OTP</label>
+          <input type="text" placeholder="Nhập OTP"
+                 id="otp" class="input-control" formControlName="otp">
+          <div *ngFor="let validation of validationMessages.otp">
+            <div *ngIf="otp.hasError(validation.type) && (otp.touched || f.submitted)" class="color-red mt-8">
+              {{validation.message}}
+            </div>
+          </div>
+        </div>
+        <div class="d-flex-end mt-16">
+          <button class="btn btn-outline" (click)="hiddenModal()" type="button">Bỏ qua</button>
+          <button class="btn btn-fill ml-16" type="submit" (click)="focusInput.focus()">Cập nhật</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+
+<div class="loading-container">
+  <div class="overlay"></div>
+  <div class="balls">
+    <div></div>
+    <div></div>
+    <div></div>
+  </div>
+</div>

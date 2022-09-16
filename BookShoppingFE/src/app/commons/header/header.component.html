@@ -1,0 +1,151 @@
+<header style="background-color: #5df15f">
+  <div class="container d-flex">
+<!--    <img src="/assets/image/imageDT.png" alt="" id="logo" (click)="resetUrl()">-->
+    <div class="d-flex-justify-sp-between w-100">
+      <div class="header__search">
+        <form class="d-flex border-none" (ngSubmit)="search()" [formGroup]="formSearch">
+          <input type="text" class="input-search" formControlName="searchValue"
+                 placeholder="Tìm kiếm theo tên sách, thể loại, tác giả,...">
+          <button class="btn btn-search" type="submit" [disabled]="formSearch.invalid" style="background-color: #ed3f2f">
+            <i class="bi bi-search"></i>
+            Tìm kiếm
+          </button>
+        </form>
+
+<!--        <ul class="header__category-list">-->
+<!--          <li class="header__category-item">-->
+<!--            <a href="">Sách cấp 1</a>-->
+<!--          </li>-->
+<!--          <li class="header__category-item">-->
+<!--            <a href="">Sách cấp 2</a>-->
+<!--          </li>-->
+<!--          <li class="header__category-item">-->
+<!--            <a href="">Sách cấp 3</a>-->
+<!--          </li>-->
+<!--          <li class="header__category-item">-->
+<!--            <a href="">Sách tham khảo</a>-->
+<!--          </li>-->
+<!--        </ul>-->
+      </div>
+
+      <div class="header__option-user-wrapper">
+        <div class="header__option-user">
+          <i class="bi bi-bell header__option-user-icon"></i>
+          <p>Thông báo</p>
+        </div>
+
+        <div class="header__option-user header__cart" (click)="viewCart()">
+          <i class="bi bi-cart3 header__option-user-icon"></i>
+          <p>Giỏ hàng</p>
+          <div style="position: absolute; top: 10px; right: 3px; width: 20px;
+          height: 20px;background-color: red; border-radius: 50%" class="d-flex-center-all">
+            <span style="line-height: 20px; padding-top: 1px">{{cartItems?.length}}</span>
+          </div>
+          <div class="cart-wrapper" (click)="$event.stopImmediatePropagation()">
+            <div class="cart-header d-flex-align-center">
+              <i class="bi bi-cart3 cart-header-icon"></i>
+              <span>Giỏ hàng ({{cartItems?.length}})</span>
+            </div>
+
+            <div class="cart-body">
+              <div class="cart-body-no-item" *ngIf="cartItems?.length <= 0">
+                  <img src="https://cdn0.fahasa.com/skin//frontend/ma_vanese/fahasa/images/checkout_cart/ico_emptycart.svg"
+                         alt="" class="cart-body-no-item-image">
+                  <p style="margin-bottom: 50px">
+                      Chưa có sản phẩm nào
+                  </p>
+              </div>
+              <div class="cart-body-has-item" *ngIf="cartItems?.length > 0">
+                <div class="cart-product-item d-flex" *ngFor="let cartItem of cartItems" (click)="viewDetailItem(cartItem?.book.id)">
+                  <img src="{{cartItem?.book.avatar}}" class="cart-product-image">
+                  <div class="cart-product-description">
+                    <p class="cart-product-name">
+                      {{cartItem?.book.name}}
+                    </p>
+                    <p class="cart-product-price">
+                      <strong>{{cartItem?.book.price | currency: 'VND'}}</strong>
+                      <span class="cart-product-quantity">
+                        x{{cartItem.amount}}
+                      </span>
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="cart-footer d-flex-justify-sp-between" *ngIf="cartItems?.length > 0">
+              <div class="d-flex-center-all d-flex-direction-column">
+                <span class="color-black">Tổng cộng</span>
+                <span class="cart-total-price">{{totalPriceCart | currency: 'VND'}}</span>
+              </div>
+              <div class="cart-detail">
+                <button class="btn cart-detail-btn" routerLink="/cart">Xem giỏ hàng</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="header__option-user select-options-account-wrapper" *ngIf="!isLogin">
+          <i class="bi bi-person header__option-user-icon"></i>
+          <p>
+            Tài khoản
+          </p>
+          <ul class="select-options-account">
+            <li class="select-item-account" (click)="openModal('login')">
+              Đăng nhập
+            </li>
+            <li class="select-item-account" (click)="openModal('register')">
+              Đăng ký
+            </li>
+          </ul>
+        </div>
+
+        <div class="header__option-user select-options-account-wrapper" *ngIf="isLogin">
+          <img [src]="user?.imageUrl" alt="Avatar" *ngIf="isLogin" class="avatar-user"
+               onerror="this.src='https://png.pngitem.com/pimgs/s/21-211738_free-member-icon-download-user-icon-svg-hd.png'">
+          <p class="username">
+            {{user?.name}}
+          </p>
+          <ul class="select-options-account" *ngIf="isLogin">
+            <li class="select-item-account" routerLink="/info/me">
+              Quản lý tài khoản
+            </li>
+            <li class="select-item-account">
+              Đơn hàng của tôi
+            </li>
+            <li class="select-item-account">
+              Sản phẩm yêu thích
+            </li>
+            <li class="select-item-account" (click)="logout()">
+              Thoát tài khoản
+            </li>
+          </ul>
+        </div>
+
+        <div class="header__option-user select-options-language-wrapper">
+          <svg xmlns="http://www.w3.org/2000/svg" width="25" height="25" fill="currentColor"
+               class="bi bi-translate" viewBox="0 0 16 16">
+            <path
+              d="M4.545 6.714 4.11 8H3l1.862-5h1.284L8 8H6.833l-.435-1.286H4.545zm1.634-.736L5.5 3.956h-.049l-.679 2.022H6.18z"/>
+            <path
+              d="M0 2a2 2 0 0 1 2-2h7a2 2 0 0 1 2 2v3h3a2 2 0 0 1 2 2v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-3H2a2 2 0 0 1-2-2V2zm2-1a1 1 0 0 0-1 1v7a1 1 0 0 0 1 1h7a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H2zm7.138 9.995c.193.301.402.583.63.846-.748.575-1.673 1.001-2.768 1.292.178.217.451.635.555.867 1.125-.359 2.08-.844 2.886-1.494.777.665 1.739 1.165 2.93 1.472.133-.254.414-.673.629-.89-1.125-.253-2.057-.694-2.82-1.284.681-.747 1.222-1.651 1.621-2.757H14V8h-3v1.047h.765c-.318.844-.74 1.546-1.272 2.13a6.066 6.066 0 0 1-.415-.492 1.988 1.988 0 0 1-.94.31z"/>
+          </svg>
+          <p>
+            Tiếng việt
+            <i class="bi bi-caret-down"></i>
+          </p>
+          <ul class="select-options-language">
+            <li class="select-item-language">
+              Tiếng việt
+            </li>
+            <li class="select-item-language">
+              English
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>
+
+
+<app-authentication *ngIf="isOpenModal" [typeForm]="typeForm" (newItemEvent)="closeModal()"></app-authentication>

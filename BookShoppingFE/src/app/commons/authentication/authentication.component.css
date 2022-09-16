@@ -1,0 +1,106 @@
+* {
+  box-sizing: border-box;
+}
+.modal-container {
+  width: 500px;
+}
+
+.modal-header li {
+  padding: 12px 4px;
+  width: 50%;
+  text-align: center;
+  cursor: pointer;
+  border-bottom: 1px solid #ccc;
+  font-size: 18px;
+}
+
+.modal-header li:hover {
+  color: rgb(8, 79, 154);
+  border-bottom: 1px solid rgb(8, 79, 154);
+}
+
+.modal-header-first-select {
+  color: rgb(8, 79, 154);
+  font-weight: 700;
+  border-bottom: 1px solid rgb(8, 79, 154) !important;
+  border-right: 1px solid rgb(8, 79, 154);
+  /* font-size: 18px; */
+}
+
+.modal-header-last-select {
+  color: rgb(8, 79, 154);
+  font-weight: 700;
+  border-bottom: 1px solid rgb(8, 79, 154) !important;
+  border-left: 1px solid rgb(8, 79, 154);
+  /* font-size: 18px; */
+}
+
+.form-login {
+  padding: 30px 60px;
+}
+
+.form-register {
+  padding: 10px 60px 30px;
+}
+
+.input-label {
+  display: block;
+  margin: 20px 0 8px;
+  color: #555555;
+}
+
+.input-control {
+  width: 100%;
+  padding: 10px 12px;
+  border: solid 1px #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+}
+
+.input-control:focus {
+  outline-color: rgb(45, 116, 192);
+}
+
+.icon-view-password,
+.register-link-otp {
+  position: absolute;
+  right: 20px;
+  top: 38px;
+  cursor: pointer;
+}
+.register-link-otp {
+  color: rgb(45, 116, 192);
+}
+.login-oauth2-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.forgot-password-link {
+  display: inline-block;
+  margin: 12px 0 20px;
+  color: rgb(45, 116, 192);
+}
+.btn-login,
+.btn-register,
+.btn-close-form {
+  width: 100%;
+  padding: 12px;
+  border-radius: 4px;
+  font-size: 15px;
+  background-color: var(--color-lightness-1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-close-form {
+  margin-top: 12px;
+  background-color: rgb(223, 222, 222);
+  color: #636363;
+}
+
+.btn-register {
+  margin-top: 30px;
+}
+
